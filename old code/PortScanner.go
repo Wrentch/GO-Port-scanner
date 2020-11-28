@@ -28,7 +28,7 @@ func main() {
 	hostname = SInput.Text()
 
 	//Here you can scan only 1 specific port, if you wish to scan 2 or more just duplicate the function.
-	open := ScanPort("tcp", hostname, 22)
+	open := ScanPort("tcp", hostname, 8080)
 	fmt.Printf("Specific port %v is %v \n", open.Port, open.State)
 
 	//This loop will scan ports from 1 to 1024 and only print the ones that are open in a new line
