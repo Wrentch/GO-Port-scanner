@@ -23,7 +23,11 @@ Commands:
     Scans ports on a specific target
 
     -s, --specific      Scans only a few specific ports that you specifed
-    -p, --protocol=tcp  What protocol you want to use. Default is set to tcp
+    -p, --protocol=tcp  What protocol you want to use. Default is set to tcp.
+                        Options are: tcp, tcp4 (IPv4-only), tcp6 (IPv6-only),
+                        udp, udp4 (IPv4-only), udp6 (IPv6-only), ip, ip4
+                        (IPv4-only), ip6 (IPv6-only), unix, unixgram and
+                        unixpacket
         --timeout=10s   Set the connection timeout. Amount of seconds
 ```
 

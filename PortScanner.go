@@ -15,6 +15,9 @@ x - Single port scan flag
 x - few ports flag (array)
 x - debug mode/all (shows all results)
 x - add timeout flag
+
+Range scan -> add range flags and arguments
+x- Show all options for scan protocols
 */
 
 // ScanResult is a custom type that shows the port number and its state(Open/closed)
@@ -35,7 +38,7 @@ var (
 	target = scan.Arg("target", "What target do you want to scan").Required().String()
 	ports  = scan.Arg("ports", "What ports do you want to scan").Int64List()
 
-	protocol = scan.Flag("protocol", "What protocol you want to use. Default is set to tcp").PlaceHolder("tcp").Short('p').Default("tcp").String()
+	protocol = scan.Flag("protocol", "What protocol you want to use. Default is set to tcp. Options are: tcp, tcp4 (IPv4-only), tcp6 (IPv6-only), udp, udp4 (IPv4-only), udp6 (IPv6-only), ip, ip4 (IPv4-only), ip6 (IPv6-only), unix, unixgram and unixpacket").PlaceHolder("tcp").Short('p').Default("tcp").String()
 	timeout  = scan.Flag("timeout", "Set the connection timeout. Amount of seconds").PlaceHolder("10s").Duration()
 	//timeoutInt, err = strconv.Atoi(*timeout)
 
@@ -46,7 +49,7 @@ func main() {
 	var result ScanResult
 	switch kingpin.Parse() {
 	case "scan":
-
+		Letters()
 		fmt.Printf("** Target: %v ** \n", *target)
 
 		if *timeout == 0 {
@@ -76,7 +79,7 @@ func main() {
 
 		} else {
 			var i int64
-			for i = 1; i < 1024; i++ {
+			for i = 1; i <= 1024; i++ {
 				result = ScanPort(*protocol, *target, i, *timeout)
 				if *all == true {
 					fmt.Printf("%v:%v - %v \n", *target, result.Port, result.State)
@@ -116,4 +119,19 @@ func ScanPort(protocol, hostname string, port int64, timeout2 time.Duration) Sca
 	reult.State = "Open"
 	return reult
 
+}
+
+//Yes I know this is unnecessary but it looks cool so I dont care
+
+//Letters is a simple functions that prints out cool ascii text
+func Letters() {
+	fmt.Println("                                 _                                         ")
+	fmt.Println("                                | |                                        ")
+	fmt.Println("   __ _  ___    _ __   ___  _ __| |_   ___  ___ __ _ _ __  _ __   ___ _ __ ")
+	fmt.Println("  / _` |/ _ \\  | '_ \\ / _ \\| '__| __| / __|/ __/ _` | '_ \\| '_ \\ / _ \\ '__|")
+	fmt.Println(" | (_| | (_) | | |_) | (_) | |  | |_  \\__ \\ (_| (_| | | | | | | |  __/ |   ")
+	fmt.Println("  \\__, |\\___/  | .__/ \\___/|_|   \\__| |___/\\___\\__,_|_| |_|_| |_|\\___|_|   ")
+	fmt.Println("   __/ |       | |                                                         ")
+	fmt.Println("  |___/        |_|                                                         ")
+	fmt.Println("")
 }
