@@ -22,9 +22,13 @@ go run main.go --help-long
 usage: PortScanner.exe [<flags>] <command> [<args> ...]
 
 Flags:
-      --help  Show context-sensitive help (also try --help-long and --help-man).
-  -a, --all   Display all results. By default it will only display the open
-              ports
+      --help             Show context-sensitive help (also try --help-long and
+                         --help-man).
+  -a, --all              Display all results. By default it will only display
+                         the open ports
+      --export           Results will be exporeted to a file
+      --name=output.txt  Choose a name for the result file export, including the
+                         file extension.
 
 Commands:
   help [<command>...]
@@ -74,7 +78,7 @@ go get gopkg.in/alecthomas/kingpin.v2
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Pull requests are welcome (especially because I can write spageti code sometimes). For major changes, please open an issue first to discuss what you would like to change.
 
 ## License
 
