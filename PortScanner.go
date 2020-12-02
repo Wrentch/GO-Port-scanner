@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net"
 	"strconv"
 	"time"
@@ -41,12 +42,14 @@ var (
 	protocol = scan.Flag("protocol", "What protocol you want to use. Default is set to tcp. Options are: tcp, tcp4 (IPv4-only), tcp6 (IPv6-only), udp, udp4 (IPv4-only), udp6 (IPv6-only), ip, ip4 (IPv4-only), ip6 (IPv6-only), unix, unixgram and unixpacket").PlaceHolder("tcp").Short('p').Default("tcp").String()
 	timeout  = scan.Flag("timeout", "Set the connection timeout. Amount of seconds").PlaceHolder("10s").Duration()
 	//timeoutInt, err = strconv.Atoi(*timeout)
-
+	start = scan.Flag("start", "Using a port range scan, whats the port you want to start with").Default("1").PlaceHolder("1").String()
+	end   = scan.Flag("end", "Using a port range scan, whats the port you want to end with").Default("1024").PlaceHolder("1024").String()
 	//drugoStanje = kingpin.Command("drugo", "heheh test 2")
 )
 
 func main() {
 	var result ScanResult
+
 	switch kingpin.Parse() {
 	case "scan":
 		Letters()
@@ -78,8 +81,21 @@ func main() {
 			//fmt.Printf("Specific port %v is %v \n", open.Port, open.State)
 
 		} else {
+			n, err := strconv.ParseInt(*start, 10, 64)
+			if err != nil {
+				log.Println(err)
+			}
+			e, err2 := strconv.ParseInt(*end, 10, 64)
+			if err2 != nil {
+				log.Println(err2)
+			}
+
+			if n > e {
+				fmt.Println("End value is bigger than the starting value")
+			}
+
 			var i int64
-			for i = 1; i <= 1024; i++ {
+			for i = n; i <= e; i++ {
 				result = ScanPort(*protocol, *target, i, *timeout)
 				if *all == true {
 					fmt.Printf("%v:%v - %v \n", *target, result.Port, result.State)

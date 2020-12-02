@@ -41,6 +41,10 @@ Commands:
                         (IPv4-only), ip6 (IPv6-only), unix, unixgram and
                         unixpacket
         --timeout=10s   Set the connection timeout. Amount of seconds
+        --start=1       Using a port range scan, whats the port you want to
+                        start with
+        --end=1024      Using a port range scan, whats the port you want to end
+                        with
 ```
 
 ## Real use examples
