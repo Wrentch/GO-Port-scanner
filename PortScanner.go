@@ -160,7 +160,6 @@ func main() {
 
 				//fmt.Println(*timeout)
 				//fmt.Printf("Specific port %v is %v \n", open.Port, open.State)
-
 				//port range scan
 			} else {
 				n, err := strconv.ParseInt(*start, 10, 64)
